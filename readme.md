@@ -4,4 +4,4 @@
 #打开方法
 	npm install
 	npm run dev
-	手动打开index1.html查看
+	本地绑定域名访问index1.html查看
