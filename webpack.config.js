@@ -3,13 +3,23 @@ var webpack = require('webpack');
 
 module.exports = {
 	entry: {//entry 中的属性是与output中filename中的[name]相对应,如app对应app.js
-		app: [path.join(__dirname, 'src/ceshi.js')],
-		/*drap:['webpack/hot/dev-server', path.join(__dirname, 'src/drag_index.js')],*/
-		vendors: ['vue']
+		/*app: [path.join(__dirname, 'src/ceshi.js')],
+		ceshi1:[path.join(__dirname, 'src/ceshi1.js')],*/
+		app:[
+ 			'webpack-dev-server/client?http://0.0.0.0:9090',//资源服务器地址    
+ 			'webpack/hot/only-dev-server',    
+ 			path.join(__dirname, 'src/ceshi.js')],
+ 		ceshi1:[
+ 			'webpack-dev-server/client?http://0.0.0.0:9090',//资源服务器地址    
+ 			'webpack/hot/only-dev-server',    
+ 			path.join(__dirname, 'src/ceshi1.js')],
+		vendors: ['vue','vue-router']
 	},
 	output: {
+		publicPath:"http://127.0.0.1:9090/",
 		path: path.join(__dirname, 'dist'),
-		filename: '[name].js'
+		filename: '[name].js',
+		chunkFilename: '../chunks/[name].chunk.js',
 	},
 	resolve: {
 	    extensions: ['', '.js', '.vue'],
@@ -57,5 +67,6 @@ module.exports = {
         //这个使用uglifyJs压缩你的js代码
         new webpack.optimize.UglifyJsPlugin({minimize: true}),
         new webpack.optimize.CommonsChunkPlugin('vendors', 'vendors.js')
-    ]
+    ],
+    devtool: '#source-map'
 };
